@@ -3,7 +3,8 @@ define pbuilder::cowbuilder (
   $dist=$lsbdistcodename,
   $arch=$architecture,
   $cachedir='/var/cache/pbuilder',
-  $confdir='/etc/pbuilder'
+  $confdir='/etc/pbuilder',
+  $pbuilderrc=''
 ) {
 
   include pbuilder::cowbuilder::common
@@ -21,6 +22,14 @@ define pbuilder::cowbuilder (
         "${confdir}/${name}/apt":
           ensure  => directory,
           require => File["${confdir}/${name}"];
+
+        "${confdir}/${name}/apt/sources.list.d":
+          ensure  => directory,
+          require => File["${confdir}/${name}/apt"];
+
+        "${confdir}/${name}/pbuilderrc":
+          ensure  => present,
+          content => $pbuilderrc,
       }
 
       exec {
@@ -30,7 +39,7 @@ define pbuilder::cowbuilder (
           creates => $basepath;
 
         "update cowbuilder ${name}":
-          command     => "${cowbuilder} --update --basepath ${basepath} --dist ${dist} --architecture ${arch}",
+          command     => "${cowbuilder} --update --configfile ${confdir}/${name}/pbuilderrc --override-config --basepath ${basepath} --dist ${dist} --architecture ${arch}",
           refreshonly => true;
       }
     }
