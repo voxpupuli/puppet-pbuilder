@@ -25,6 +25,7 @@ define pbuilder::cowbuilder (
 
         "${confdir}/${name}/apt/sources.list.d":
           ensure  => directory,
+          purge   => true,
           require => File["${confdir}/${name}/apt"];
 
         "${confdir}/${name}/pbuilderrc":
@@ -39,7 +40,7 @@ define pbuilder::cowbuilder (
           creates => $basepath;
 
         "update cowbuilder ${name}":
-          command     => "${cowbuilder} --update --configfile ${confdir}/${name}/pbuilderrc --override-config --basepath ${basepath} --dist ${dist} --architecture ${arch}",
+          command     => "${cowbuilder} --update --configfile ${confdir}/${name}/pbuilderrc --basepath ${basepath} --dist ${dist} --architecture ${arch} --override-config",
           refreshonly => true;
       }
     }
