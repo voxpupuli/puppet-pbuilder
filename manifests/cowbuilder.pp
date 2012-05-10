@@ -48,6 +48,13 @@ define pbuilder::cowbuilder (
     }
 
     absent: {
+      file {
+        "${confdir}/${name}":
+          ensure => absent;
+
+        $basepath:
+          ensure => absent;
+      }
 
     }
 
