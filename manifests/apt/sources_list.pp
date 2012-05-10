@@ -8,8 +8,8 @@ define pbuilder::apt::sources_list (
 ) {
 
   $file = $filename ? {
-    ''      => "/etc/pbuilder/${pbuilder_name}/apt/sources.list.d/${filename}.list",
-    default => "/etc/pbuilder/${pbuilder_name}/apt/sources.list.d/${name}.list",
+    ''      => "/etc/pbuilder/${pbuilder_name}/apt/sources.list.d/${name}.list",
+    default => "/etc/pbuilder/${pbuilder_name}/apt/sources.list.d/${filename}.list",
   }
 
   if $source {

@@ -25,7 +25,9 @@ define pbuilder::cowbuilder (
 
         "${confdir}/${name}/apt/sources.list.d":
           ensure  => directory,
+          recurse => true,
           purge   => true,
+          force   => true,
           require => File["${confdir}/${name}/apt"];
 
         "${confdir}/${name}/pbuilderrc":
