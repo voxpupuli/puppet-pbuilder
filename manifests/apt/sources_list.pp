@@ -3,17 +3,23 @@ define pbuilder::apt::sources_list (
   $ensure='present',
   $source=false,
   $content=false,
-  $pbuilder_type='pbuilder'
+  $pbuilder_type='pbuilder',
+  $filename=''
 ) {
 
+  $file = $filename ? {
+    ''      => "/etc/pbuilder/${pbuilder_name}/apt/sources.list.d/${filename}.list",
+    default => "/etc/pbuilder/${pbuilder_name}/apt/sources.list.d/${name}.list",
+  }
+
   if $source {
-    file {"/etc/pbuilder/${pbuilder_name}/apt/sources.list.d/${name}.list":
+    file {$file:
       ensure => $ensure,
       source => $source,
       notify => Exec["update ${pbuilder_type} ${pbuilder_name}"],
     }
   } else {
-    file {"/etc/pbuilder/${pbuilder_name}/apt/sources.list.d/${name}.list":
+    file {$file:
       ensure  => $ensure,
       content => $content,
       notify => Exec["update ${pbuilder_type} ${pbuilder_name}"],
