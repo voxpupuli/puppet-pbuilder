@@ -17,10 +17,9 @@ define pbuilder::apt::preferences (
   # apt support preferences.d since version >= 0.7.22
   # but we can't simply test for the version used in the pbuilder
   # so we just concatenate
-  common::concatfilepart { $fname:
+  concat::fragment {$fname:
       ensure  => $ensure,
-      manage  => true,
-      file    => "/etc/pbuilder/${pbuilder_name}/apt/preferences",
+      target  => "/etc/pbuilder/${pbuilder_name}/apt/preferences",
       content => template("apt/preferences.erb"),
       notify  => Exec["update ${pbuilder_type} ${pbuilder_name}"],
   }

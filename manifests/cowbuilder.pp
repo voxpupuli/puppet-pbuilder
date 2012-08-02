@@ -7,10 +7,19 @@ define pbuilder::cowbuilder (
   $pbuilderrc=''
 ) {
 
+  include concat::setup
   include pbuilder::cowbuilder::common
 
   $cowbuilder = '/usr/sbin/cowbuilder'
   $basepath = "${cachedir}/base-${name}.cow"
+
+  concat {"${confdir}/${name}/apt/preferences":
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    force   => true,
+    require => Package['pbuilder'],
+  }
 
   case $ensure {
     present: {
