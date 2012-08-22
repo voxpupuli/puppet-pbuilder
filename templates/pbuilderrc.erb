@@ -43,7 +43,7 @@ USEDEVFS=no
 
 # specifying the distribution forces the distribution on "pbuilder update"
 #specify the cache for APT 
-APTCACHE="$PBUILDER_HOME/aptcache/"
+APTCACHE="<%= aptcachedir %>"
 APTCACHEHARDLINK="yes"
 REMOVEPACKAGES="lilo"
 
