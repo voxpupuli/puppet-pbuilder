@@ -42,7 +42,8 @@ class pbuilder::common {
    }
 
    group { "pbuilder":
-      ensure => present
+      ensure => present,
+      system => true,
    }
 
 }
