@@ -9,7 +9,7 @@ class pbuilder::cowbuilder::common inherits pbuilder::common {
     group  => 'root',
     mode   => '0644',
     content => '# file managed by puppet
-MIRRORSITE="http://ftp.debian.org/debian"
+MIRRORSITE="http://http.debian.net/debian"
 
 DEBBUILDOPTS="-sa"
 unset DEBOOTSTRAPOPTS
