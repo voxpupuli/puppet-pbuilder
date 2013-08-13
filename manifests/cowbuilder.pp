@@ -48,10 +48,12 @@ define pbuilder::cowbuilder (
         "create cowbuilder ${name}":
           command => "${cowbuilder} --create --basepath ${basepath} --dist ${dist} --architecture ${arch}",
           require => File['/etc/pbuilderrc'],
+          timeout => 0,
           creates => $basepath;
 
         "update cowbuilder ${name}":
           command     => "${cowbuilder} --update --configfile ${confdir}/${name}/pbuilderrc --basepath ${basepath} --dist ${dist} --architecture ${arch} --override-config",
+          timeout => 0,
           refreshonly => true;
       }
     }
