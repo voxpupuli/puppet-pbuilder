@@ -42,7 +42,7 @@ define pbuilder::cowbuilder (
         "${confdir}/${name}/pbuilderrc":
           ensure  => present,
           content => $pbuilderrc,
-      }
+      } ->
 
       exec {
         "create cowbuilder ${name}":
