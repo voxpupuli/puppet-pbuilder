@@ -46,16 +46,16 @@ define pbuilder::cowbuilder (
 
       exec {
         "create cowbuilder ${name}":
-          command => "${cowbuilder} --create --basepath ${basepath} --dist ${dist} --architecture ${arch}",
+          command     => "${cowbuilder} --create --basepath ${basepath} --dist ${dist} --architecture ${arch}",
           environment => ["NAME=${name}"], # used in /etc/pbuilderrc
-          require => File['/etc/pbuilderrc'],
-          timeout => 0,
-          creates => $basepath;
+          require     => File['/etc/pbuilderrc'],
+          timeout     => 0,
+          creates     => $basepath;
 
         "update cowbuilder ${name}":
           command     => "${cowbuilder} --update --configfile ${confdir}/${name}/pbuilderrc --basepath ${basepath} --dist ${dist} --architecture ${arch} --override-config",
           environment => ["NAME=${name}"], # used in /etc/pbuilderrc
-          timeout => 0,
+          timeout     => 0,
           refreshonly => true;
       }
     }
