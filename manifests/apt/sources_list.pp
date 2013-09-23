@@ -22,7 +22,7 @@ define pbuilder::apt::sources_list (
     file {$file:
       ensure  => $ensure,
       content => $content,
-      notify => Exec["update ${pbuilder_type} ${pbuilder_name}"],
+      notify  => Exec["update ${pbuilder_type} ${pbuilder_name}"],
     }
   }
 }
