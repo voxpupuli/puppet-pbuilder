@@ -42,16 +42,20 @@ define pbuilder::cowbuilder (
         "${confdir}/${name}/pbuilderrc":
           ensure  => present,
           content => $pbuilderrc,
-      }
+      } ->
 
       exec {
         "create cowbuilder ${name}":
-          command => "${cowbuilder} --create --basepath ${basepath} --dist ${dist} --architecture ${arch}",
-          require => File['/etc/pbuilderrc'],
-          creates => $basepath;
+          command     => "${cowbuilder} --create --basepath ${basepath} --dist ${dist} --architecture ${arch}",
+          environment => ["NAME=${name}"], # used in /etc/pbuilderrc
+          require     => File['/etc/pbuilderrc'],
+          timeout     => 0,
+          creates     => $basepath;
 
         "update cowbuilder ${name}":
           command     => "${cowbuilder} --update --configfile ${confdir}/${name}/pbuilderrc --basepath ${basepath} --dist ${dist} --architecture ${arch} --override-config",
+          environment => ["NAME=${name}"], # used in /etc/pbuilderrc
+          timeout     => 0,
           refreshonly => true;
       }
     }
@@ -71,6 +75,5 @@ define pbuilder::cowbuilder (
       fail("Wrong value for ensure: ${ensure}")
     }
   }
-  
 
 }

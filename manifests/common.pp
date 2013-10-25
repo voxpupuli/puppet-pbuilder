@@ -34,16 +34,16 @@
 #
 class pbuilder::common {
 
-   # Call this class from within the pbuilder definition
+  # Call this class from within the pbuilder definition
 
+  package { 'pbuilder':
+    ensure => installed
+  }
 
-   package { "pbuilder":
-      ensure => installed
-   }
-
-   group { "pbuilder":
-      ensure => present
-   }
+  group { 'pbuilder':
+    ensure => present,
+    system => true,
+  }
 
 }
 
