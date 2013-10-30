@@ -7,7 +7,6 @@ define pbuilder::cowbuilder (
   $pbuilderrc=''
 ) {
 
-  include concat::setup
   include pbuilder::cowbuilder::common
 
   $cowbuilder = '/usr/sbin/cowbuilder'
