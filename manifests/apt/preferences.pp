@@ -19,7 +19,7 @@ define pbuilder::apt::preferences (
   # so we just concatenate
   $pin_release = ''
   $origin = ''
-  $explanation = "${::caller_module_name}: ${name}"
+  $explanation = "${caller_module_name}: ${name}"
   concat::fragment {$fname:
       ensure  => $ensure,
       target  => "/etc/pbuilder/${pbuilder_name}/apt/preferences",
