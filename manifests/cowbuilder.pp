@@ -1,7 +1,7 @@
 define pbuilder::cowbuilder (
   $ensure='present',
-  $dist=$lsbdistcodename,
-  $arch=$architecture,
+  $dist=$::lsbdistcodename,
+  $arch=$::architecture,
   $cachedir='/var/cache/pbuilder',
   $confdir='/etc/pbuilder',
   $pbuilderrc=''
