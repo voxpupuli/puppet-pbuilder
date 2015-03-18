@@ -1,13 +1,17 @@
 require 'spec_helper'
+
 describe 'pbuilder::cowbuilder' do
   let (:title) { 'foo' }
-  let (:facts) { {
-    :osfamily        => 'Debian',
-    :lsbdistcodename => 'wheezy',
-    :architecture    => 'amd64',
-    :id              => 'root',
-    :path            => '/foo',
-  } }
 
-  it { should compile.with_all_deps }
+  on_supported_os.each do |os, facts|
+    context "on #{os}" do
+      let(:facts) do
+        facts.merge({
+          :concat_basedir => '/tmp',
+        })
+      end
+
+      it { should compile.with_all_deps }
+    end
+  end
 end
