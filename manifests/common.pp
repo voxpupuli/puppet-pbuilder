@@ -37,7 +37,7 @@ class pbuilder::common {
   # Call this class from within the pbuilder definition
 
   package { 'pbuilder':
-    ensure => installed
+    ensure => installed,
   }
 
   group { 'pbuilder':

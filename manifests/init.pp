@@ -43,7 +43,7 @@ define pbuilder(
 ) {
 
   # Include commons (package and group)
-  include 'pbuilder::common'
+  include '::pbuilder::common'
 
   $script     = "${bindir}/pbuilder-${name}"
 
@@ -64,7 +64,7 @@ define pbuilder(
 
 
   case $ensure {
-    present: {
+    'present': {
       # LEGACY: ensure all the dirs exist recursively
       #         the file type can't do that yet
       exec {
@@ -84,7 +84,7 @@ define pbuilder(
 
       file {
       $script:
-        ensure  => present,
+        ensure  => file,
         mode    => '0755',
         content => template('pbuilder/script.erb'),
         require => Exec["bindir-${name}"];
@@ -102,7 +102,7 @@ define pbuilder(
         #              source  => "puppet://${server}/pbuilder/hookdir/${site}",
         require => Exec["confdir-${name}"];
       $pbuilderrc:
-        ensure  => present,
+        ensure  => file,
         content => template('pbuilder/pbuilderrc.erb'),
         require => Exec["confdir-${name}"];
 
@@ -110,13 +110,13 @@ define pbuilder(
 
       # create the pbuilder if it was not created yet
       exec { "create_pbuilder_${name}":
-        command  => "${script} create",
-        creates  => $basetgz,
-        require  => [ Package[pbuilder],
+        command => "${script} create",
+        creates => $basetgz,
+        require => [ Package[pbuilder],
         File[$script], File[$aptconfdir],
         File[$pbuilderrc], File[$builddir], File[$aptcachedir],
         Exec["chrootdir-${name}"]
-        ]
+        ],
       }
 
       # update the pbuilder if the config changes but only if $basetgz exists
@@ -129,16 +129,16 @@ define pbuilder(
         File[$script], File[$aptconfdir],
         File[$pbuilderrc], File[$builddir], File[$aptcachedir],
         Exec["chrootdir-${name}"]
-        ]
+        ],
       }
     }
 
-    absent: {
+    'absent': {
       # clean pbuilder to be sure no proc/dev is mounted in $builddir
       exec { "clean_pbuilder_${name}":
         command => "${script} clean",
         onlyif  => "/usr/bin/test -f ${script}",
-        require => Package[pbuilder]
+        require => Package[pbuilder],
       }
 
       file {

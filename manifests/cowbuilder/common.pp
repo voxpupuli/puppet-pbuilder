@@ -4,10 +4,10 @@ class pbuilder::cowbuilder::common inherits pbuilder::common {
   }
 
   file {'/etc/pbuilderrc':
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
     content => '# file managed by puppet
 MIRRORSITE="http://http.debian.net/debian"
 

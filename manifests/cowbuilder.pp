@@ -7,7 +7,7 @@ define pbuilder::cowbuilder (
   $pbuilderrc=''
 ) {
 
-  include pbuilder::cowbuilder::common
+  include ::pbuilder::cowbuilder::common
 
   $cowbuilder = '/usr/sbin/cowbuilder'
   $basepath = "${cachedir}/base-${name}.cow"
@@ -21,7 +21,7 @@ define pbuilder::cowbuilder (
   }
 
   case $ensure {
-    present: {
+    'present': {
       file {
         "${confdir}/${name}":
           ensure  => directory,
@@ -39,7 +39,7 @@ define pbuilder::cowbuilder (
           require => File["${confdir}/${name}/apt"];
 
         "${confdir}/${name}/pbuilderrc":
-          ensure  => present,
+          ensure  => file,
           content => $pbuilderrc,
       } ->
 
@@ -59,7 +59,7 @@ define pbuilder::cowbuilder (
       }
     }
 
-    absent: {
+    'absent': {
       file {
         "${confdir}/${name}":
           ensure => absent;
