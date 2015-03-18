@@ -17,8 +17,8 @@ define pbuilder::apt::preferences (
   # apt support preferences.d since version >= 0.7.22
   # but we can't simply test for the version used in the pbuilder
   # so we just concatenate
-  $pin_release = ''
-  $origin = ''
+  $pin_release = undef
+  $origin = undef
   $explanation = "${caller_module_name}: ${name}"
   concat::fragment {$fname:
       ensure  => $ensure,
