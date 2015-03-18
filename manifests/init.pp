@@ -163,6 +163,10 @@ define pbuilder(
             force   => true;
       }
     }
+
+    default: {
+      fail "\$value must be one of 'present' or 'absent'."
+    }
   }
 }
 

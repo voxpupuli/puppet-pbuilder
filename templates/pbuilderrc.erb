@@ -12,22 +12,22 @@
 
 ########## BEGIN SPECIFIC CONFIGURATION ###########
 
-MIRRORSITE="<%= methodurl %>"
-DISTRIBUTION="<%= release %>"
-ARCH="<%= arch %>"
+MIRRORSITE="<%= @methodurl %>"
+DISTRIBUTION="<%= @release %>"
+ARCH="<%= @arch %>"
 
-BASETGZ="<%= basetgz %>"
-BUILDPLACE="<%= builddir %>"
-BUILDRESULT="<%= resultdir %>"
-APTCACHE="<%= aptcachedir %>"
-APTCONFDIR="<%= aptconfdir %>"
-HOOKDIR="<%= hookdir %>"
+BASETGZ="<%= @basetgz %>"
+BUILDPLACE="<%= @builddir %>"
+BUILDRESULT="<%= @resultdir %>"
+APTCACHE="<%= @aptcachedir %>"
+APTCONFDIR="<%= @aptconfdir %>"
+HOOKDIR="<%= @hookdir %>"
 
-DEBBUILDOPTS="<%= debbuildopts %>"
+DEBBUILDOPTS="<%= @debbuildopts %>"
 
 # BINDMOUNTS is a space separated list of things to mount
 # inside the chroot.
-BINDMOUNTS="<%= bindmounts %>"
+BINDMOUNTS="<%= @bindmounts %>"
 
 ########## END SPECIFIC CONFIGURATION #############
 
@@ -43,7 +43,7 @@ USEDEVFS=no
 
 # specifying the distribution forces the distribution on "pbuilder update"
 #specify the cache for APT 
-APTCACHE="<%= aptcachedir %>"
+APTCACHE="<%= @aptcachedir %>"
 APTCACHEHARDLINK="yes"
 REMOVEPACKAGES="lilo"
 

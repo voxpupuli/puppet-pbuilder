@@ -4,11 +4,11 @@ define pbuilder::apt::sources_list (
   $source=false,
   $content=false,
   $pbuilder_type='pbuilder',
-  $filename=''
+  $filename=undef,
 ) {
 
   $file = $filename ? {
-    ''      => "/etc/pbuilder/${pbuilder_name}/apt/sources.list.d/${name}.list",
+    undef   => "/etc/pbuilder/${pbuilder_name}/apt/sources.list.d/${name}.list",
     default => "/etc/pbuilder/${pbuilder_name}/apt/sources.list.d/${filename}.list",
   }
 

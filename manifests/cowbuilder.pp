@@ -4,7 +4,7 @@ define pbuilder::cowbuilder (
   $arch=$::architecture,
   $cachedir='/var/cache/pbuilder',
   $confdir='/etc/pbuilder',
-  $pbuilderrc=''
+  $pbuilderrc=undef,
 ) {
 
   include ::pbuilder::cowbuilder::common
