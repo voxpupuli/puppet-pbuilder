@@ -3,12 +3,12 @@ define pbuilder::apt::preferences (
   $priority,
   $ensure        = 'present',
   $pbuilder_type = 'pbuilder',
-  $package       = '',
-  $version       = '',
+  $package       = undef,
+  $version       = undef,
 ) {
 
   $packages = $package ? {
-    ''      => $name,
+    undef   => $name,
     default => $package,
   }
 
