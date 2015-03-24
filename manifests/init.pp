@@ -40,6 +40,7 @@ define pbuilder(
   $chrootdir    = '/var/chroot/pbuilder',
   $confdir      = '/etc/pbuilder',
   $cachedir     = '/var/cache/pbuilder',
+  $rctemplate   = 'pbuilder/pbuilderrc.erb',
 ) {
 
   # Include commons (package and group)
@@ -103,7 +104,7 @@ define pbuilder(
         require => Exec["confdir-${name}"];
       $pbuilderrc:
         ensure  => file,
-        content => template('pbuilder/pbuilderrc.erb'),
+        content => template($rctemplate),
         require => Exec["confdir-${name}"];
 
       }
