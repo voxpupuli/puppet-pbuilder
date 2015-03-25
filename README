@@ -54,7 +54,8 @@ The pbuilder type takes the following arguments :
      Defaults to "/etc/pbuilder"
  - cachedir: where to create the aptcache, build and result directories
      Defaults to "/var/cache/pbuilder"
-
+ - templaterc: the pbuilderrc ERB template to use
+     Defaults to "pbuilder/pbuilderrc.erb"
 
 This module assumes the following directories:
 
