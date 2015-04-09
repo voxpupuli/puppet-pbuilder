@@ -37,9 +37,9 @@ define pbuilder(
   $debbuildopts = '-b',
   $bindmounts   = undef,
   $bindir       = '/usr/local/bin',
-  $chrootdir    = '/var/chroot/pbuilder',
-  $confdir      = '/etc/pbuilder',
-  $cachedir     = '/var/cache/pbuilder',
+  $chrootdir    = $pbuilder::params::chrootdir,
+  $confdir      = $pbuilder::params::confdir,
+  $cachedir     = $pbuilder::params::cachedir,
   $rctemplate   = 'pbuilder/pbuilderrc.erb',
 ) {
 
