@@ -32,18 +32,52 @@
 # Sample Usage:
 #   include "pbuilder::common"
 #
-class pbuilder::common {
+class pbuilder::common(
+  $package   = $pbuilder::params::package,
+  $confdir   = $pbuilder::params::confdir,
+  $cachedir  = $pbuilder::params::cachedir,
+  $chrootdir = $pbuilder::params::chrootdir,
+  $group     = $pbuilder::params::group,
+) inherits pbuilder::params {
+  # validate parameters
+  validate_string($package)
+  validate_absolute_path($confdir)
+  validate_absolute_path($cachedir)
+  validate_absolute_path($chrootdir)
+  validate_string($group)
 
   # Call this class from within the pbuilder definition
 
-  package { 'pbuilder':
+  package { $package:
     ensure => installed,
   }
 
-  group { 'pbuilder':
+  group { $group:
     ensure => present,
     system => true,
   }
 
+  # The directories should be created by the package, but Puppet doesn't know that, so tell it.
+  file { $confdir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  file { $cachedir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  # Package does not create the chroot dir
+  file { $chrootdir:
+    ensure => directory,
+    owner  => 'root',
+    group  => $group,
+    mode   => '0755',
+  }
 }
 
