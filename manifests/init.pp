@@ -36,7 +36,6 @@ define pbuilder(
   $methodurl    = undef,
   $debbuildopts = '-b',
   $bindmounts   = undef,
-  $bindir       = '/usr/local/bin',
   $rctemplate   = 'pbuilder/pbuilderrc.erb',
 ) {
 
@@ -47,6 +46,7 @@ define pbuilder(
 
   # directories
   $_chrootdir           = ${::pbuilder::common::chrootdir}
+  $bindir               = '/usr/local/bin'
   $pbuilder_confdir     = "${::pbuilder::common::confdir}/${name}"
   $pbuilder_cachedir    = "${::pbuilder::common::cachedir}/${name}"
   $builddir             = "${pbuilder_cachedir}/build"
@@ -76,14 +76,6 @@ define pbuilder(
         group   => 'root',
         mode    => '0755',
         recurse => true,
-      }
-
-      # LEGACY: ensure bindir exists
-      #  the file type can't do that yet
-      exec {
-        "bindir-${name}":
-          command => "/bin/mkdir -p ${bindir}",
-          creates => $bindir;
       }
 
       file {$script:
