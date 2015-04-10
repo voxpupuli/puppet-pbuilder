@@ -37,20 +37,18 @@ define pbuilder(
   $debbuildopts = '-b',
   $bindmounts   = undef,
   $bindir       = '/usr/local/bin',
-  $chrootdir    = $pbuilder::params::chrootdir,
-  $confdir      = $pbuilder::params::confdir,
-  $cachedir     = $pbuilder::params::cachedir,
   $rctemplate   = 'pbuilder/pbuilderrc.erb',
 ) {
 
-  # Include commons (package and group)
+  # Include commons (package, group and top level dirs)
   include '::pbuilder::common'
 
-  $script     = "${bindir}/pbuilder-${name}"
+  $script = "${bindir}/pbuilder-${name}"
 
   # directories
-  $pbuilder_confdir     = "${confdir}/${name}"
-  $pbuilder_cachedir    = "${cachedir}/${name}"
+  $_chrootdir           = ${::pbuilder::common::chrootdir}
+  $pbuilder_confdir     = "${::pbuilder::common::confdir}/${name}"
+  $pbuilder_cachedir    = "${::pbuilder::common::cachedir}/${name}"
   $builddir             = "${pbuilder_cachedir}/build"
   $resultdir            = "${pbuilder_cachedir}/result"
   $aptcachedir          = "${pbuilder_cachedir}/aptcache"
@@ -61,52 +59,48 @@ define pbuilder(
   $hookdir     = "${pbuilder_confdir}/hooks"
 
   # base
-  $basetgz     = "${chrootdir}/base_${name}.tgz"
-
+  $basetgz     = "${_chrootdir}/base_${name}.tgz"
 
   case $ensure {
     'present': {
-      # LEGACY: ensure all the dirs exist recursively
-      #         the file type can't do that yet
+      file { [$pbuilder_confdir, $aptconfdir, $hookdir]:
+        ensure  => directory,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0755',
+        recurse => true,
+      }
+      file { [$pbuilder_cachedir, $builddir, $resultdir, $aptcachedir]:
+        ensure  => directory,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0755',
+        recurse => true,
+      }
+
+      # LEGACY: ensure bindir exists
+      #  the file type can't do that yet
       exec {
-        "confdir-${name}":
-          command => "/bin/mkdir -p ${pbuilder_confdir}",
-          creates => $pbuilder_confdir;
         "bindir-${name}":
           command => "/bin/mkdir -p ${bindir}",
           creates => $bindir;
-        "chrootdir-${name}":
-          command => "/bin/mkdir -p ${chrootdir}",
-          creates => $chrootdir;
-        "cachedir-${name}":
-          command => "/bin/mkdir -p ${pbuilder_cachedir}",
-          creates => $pbuilder_cachedir;
       }
 
-      file {
-      $script:
+      file {$script:
         ensure  => file,
+        owner   => 'root',
+        group   => 'root',
         mode    => '0755',
         content => template('pbuilder/script.erb'),
-        require => Exec["bindir-${name}"];
-      [ $builddir, $resultdir, $aptcachedir ]:
-        ensure  => directory,
-        require => Exec["cachedir-${name}"];
-      $aptconfdir:
-        ensure  => directory,
-        recurse => true,
-        require => Exec["confdir-${name}"];
-      $hookdir:
-        ensure  => directory,
-        recurse => true,
-        # TODO hookdir source
-        #              source  => "puppet://${server}/pbuilder/hookdir/${site}",
-        require => Exec["confdir-${name}"];
-      $pbuilderrc:
-        ensure  => file,
-        content => template($rctemplate),
-        require => Exec["confdir-${name}"];
+        require => Exec["bindir-${name}"],
+      }
 
+      file {$pbuilderrc:
+        ensure  => file,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template($rctemplate),
       }
 
       # create the pbuilder if it was not created yet
@@ -147,21 +141,23 @@ define pbuilder(
         [ $script, $pbuilderrc, $basetgz]:
           ensure  => absent,
           require => Exec["clean_pbuilder_${name}"];
-          # recursively remove internal directories
-          [ $aptconfdir, $builddir, $resultdir, $aptcachedir ]:
-            ensure  => absent,
-            require => Exec["clean_pbuilder_${name}"],
-            recurse => true,
-            force   => true;
-          # recursively remove containing directories
-          [ $pbuilder_confdir, $pbuilder_cachedir ]:
-            ensure  => absent,
-            require => [ Exec["clean_pbuilder_${name}"],
-            File[$script], File[$pbuilderrc],
-            File[$aptconfdir],
-            File[$builddir], File[$resultdir], File[$aptcachedir]
-            ],
-            force   => true;
+
+        # recursively remove internal directories
+        [ $aptconfdir, $builddir, $resultdir, $aptcachedir ]:
+          ensure  => absent,
+          require => Exec["clean_pbuilder_${name}"],
+          recurse => true,
+          force   => true;
+
+        # recursively remove containing directories
+        [ $pbuilder_confdir, $pbuilder_cachedir ]:
+          ensure  => absent,
+          require => [ Exec["clean_pbuilder_${name}"],
+          File[$script], File[$pbuilderrc],
+          File[$aptconfdir],
+          File[$builddir], File[$resultdir], File[$aptcachedir]
+          ],
+          force   => true;
       }
     }
 
