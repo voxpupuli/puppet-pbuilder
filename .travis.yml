@@ -17,3 +17,14 @@ matrix:
     env: PUPPET_GEM_VERSION="~> 3.0" FUTURE_PARSER="yes"
 notifications:
   email: false
+deploy:
+  provider: puppetforge
+  user: camptocamp
+  password:
+    secure: "Vz+f9XCeUxk//5Py1scx50r7sSyQUBlhRK/5ChzUsHry9bZF2hFxbl4kx6hPmDjSLSDFMhNepMCfkOw/vbMAkqT/s7dcstSmY5opfUyUyma8Tey1Mxn5SVyXDMHP+fGb0XtM6WYMSPMP0MLXdYCLfsFs4BK+89k0LEw7jtvJLqU="
+  on:
+    tags: true
+    # all_branches is required to use tags
+    all_branches: true
+    # Only publish if our main Ruby target builds
+    rvm: 1.9.3
