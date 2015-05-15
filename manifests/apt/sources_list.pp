@@ -16,6 +16,9 @@ define pbuilder::apt::sources_list (
     file {$file:
       ensure => $ensure,
       source => $source,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
       notify => Exec["update ${pbuilder_type} ${pbuilder_name}"],
     }
   } else {
