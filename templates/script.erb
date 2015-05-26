@@ -13,7 +13,7 @@
 OPERATION=$1
 
 
-CONFIGFILE="<%= pbuilderrc %>"
+CONFIGFILE="<%= @pbuilderrc %>"
 
 # Get the archicture and release from $0 (use symlink)
 PBUILDERNAME=`basename $0 | cut -f2 -d'-'`
