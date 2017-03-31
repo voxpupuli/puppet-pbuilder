@@ -41,9 +41,9 @@ define pbuilder::cowbuilder (
         "${confdir}/${name}/pbuilderrc":
           ensure  => file,
           content => $pbuilderrc,
-      } ->
+      }
 
-      exec {
+      -> exec {
         "create cowbuilder ${name}":
           command     => "${cowbuilder} --create --basepath ${basepath} --dist ${dist} --architecture ${arch}",
           environment => ["NAME=${name}"], # used in /etc/pbuilderrc
