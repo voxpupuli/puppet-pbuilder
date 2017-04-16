@@ -2,15 +2,15 @@ define pbuilder::cowbuilder (
   $ensure='present',
   $dist=$::lsbdistcodename,
   $arch=$::architecture,
-  $cachedir='/var/cache/pbuilder',
-  $confdir='/etc/pbuilder',
   $pbuilderrc=undef,
 ) {
 
   include ::pbuilder::cowbuilder::common
 
+  $cachedir   = ${::pbuilder::common::cachedir}
+  $confdir    = ${::pbuilder::common::confdir}
   $cowbuilder = '/usr/sbin/cowbuilder'
-  $basepath = "${cachedir}/base-${name}.cow"
+  $basepath   = "${cachedir}/base-${name}.cow"
 
   concat {"${confdir}/${name}/apt/preferences":
     owner   => root,
