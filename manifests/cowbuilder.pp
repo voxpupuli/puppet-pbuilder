@@ -16,7 +16,6 @@ define pbuilder::cowbuilder (
     owner   => root,
     group   => root,
     mode    => '0644',
-    force   => true,
     require => Package['pbuilder'],
   }
 
@@ -35,7 +34,6 @@ define pbuilder::cowbuilder (
           ensure  => directory,
           recurse => true,
           purge   => true,
-          force   => true,
           require => File["${confdir}/${name}/apt"];
 
         "${confdir}/${name}/pbuilderrc":
