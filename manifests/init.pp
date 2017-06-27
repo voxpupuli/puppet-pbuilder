@@ -151,8 +151,7 @@ define pbuilder(
           [ $aptconfdir, $builddir, $resultdir, $aptcachedir ]:
             ensure  => absent,
             require => Exec["clean_pbuilder_${name}"],
-            recurse => true,
-            force   => true;
+            recurse => true;
           # recursively remove containing directories
           [ $pbuilder_confdir, $pbuilder_cachedir ]:
             ensure  => absent,
@@ -160,8 +159,7 @@ define pbuilder(
             File[$script], File[$pbuilderrc],
             File[$aptconfdir],
             File[$builddir], File[$resultdir], File[$aptcachedir]
-            ],
-            force   => true;
+            ];
       }
     }
 
