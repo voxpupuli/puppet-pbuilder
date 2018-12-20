@@ -1,31 +1,41 @@
-= Overview
+Pbuilder Puppet module
+======================
+
+[![Puppet Forge Version](http://img.shields.io/puppetforge/v/camptocamp/pbuilder.svg)](https://forge.puppetlabs.com/camptocamp/pbuilder)
+[![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/camptocamp/pbuilder.svg)](https://forge.puppetlabs.com/camptocamp/pbuilder)
+[![Build Status](https://img.shields.io/travis/camptocamp/puppet-pbuilder/master.svg)](https://travis-ci.org/camptocamp/puppet-pbuilder)
+[![Puppet Forge Endorsement](https://img.shields.io/puppetforge/e/camptocamp/pbuilder.svg)](https://forge.puppetlabs.com/camptocamp/pbuilder)
+[![By Camptocamp](https://img.shields.io/badge/by-camptocamp-fb7047.svg)](http://www.camptocamp.com)
+
+
+# Overview
 
 Pbuilder is a building utility for Debian systems based on sbuild.
 
 
-= Dependencies
+# Dependencies
 
 This module is only tested on puppet master and client versions 0.24.7,
 so it could be that it depends on that version (or higher).
 
 
-= Reference
+# Reference
 
 To use this module, drop it into your modules path.
 
 
-= Classes
+# Classes
 
  - pbuilder::common, included by the pbuilder definition
 
 
-= Definitions
+# Definitions
 
  - pbuilder
 
-== pbuilder
+## pbuilder
 
-=== Parameters
+### Parameters
 
 The pbuilder type takes the following arguments :
  - ensure: whether the pbuilder should be present
@@ -76,24 +86,24 @@ Chroot:
 
 
 
-=== Examples
+### Examples
 
 
-==== Set a pbuilder using the release and architecture of the host
+#### Set a pbuilder using the release and architecture of the host
 
 pbuilder { "feisty":
    methodurl => "http://archive.ubuntu.com/ubuntu",
 }
 
 
-==== Destroy an old existing pbuilder
+#### Destroy an old existing pbuilder
 
 pbuilder { "dapper":
    ensure => absent
 }
 
 
-==== Set an am64 pbuilder for the etch release, including sources in the .changes
+#### Set an am64 pbuilder for the etch release, including sources in the .changes
 
 pbuilder { "etch-amd64":
    release      => etch,
@@ -103,14 +113,14 @@ pbuilder { "etch-amd64":
 
 
 
-=== Important note
+### Important note
 
 You have to provide a valid apt.config directory for your pbuilder.
 You can use the apt class for that, and notify the private pbuilder_update Exec.
 
 
-= Licence
+# Licence
 
-Copyright © 2007-2009 Raphaël Pinson <raphink@gmail.com>
+Copyright © 2007-2018 Raphaël Pinson <raphink@gmail.com>
 See the LICENSE file for the full license.
 
