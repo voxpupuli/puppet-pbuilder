@@ -17,7 +17,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-
 # Class: pbuilder::common
 #
 # This class is imported from the pbuilder type. It manages generic resources for pbuilder.
@@ -33,7 +32,6 @@
 #   include "pbuilder::common"
 #
 class pbuilder::common {
-
   # Call this class from within the pbuilder definition
 
   package { 'pbuilder':
@@ -44,6 +42,4 @@ class pbuilder::common {
     ensure => present,
     system => true,
   }
-
 }
-

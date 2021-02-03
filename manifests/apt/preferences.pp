@@ -6,7 +6,6 @@ define pbuilder::apt::preferences (
   $package       = undef,
   $version       = undef,
 ) {
-
   $packages = $package ? {
     undef   => $name,
     default => $package,
@@ -20,11 +19,10 @@ define pbuilder::apt::preferences (
   $pin_release = undef
   $origin = undef
   $explanation = "${caller_module_name}: ${name}"
-  concat::fragment {$fname:
-      ensure  => $ensure,
-      target  => "/etc/pbuilder/${pbuilder_name}/apt/preferences",
-      content => template('apt/pin.pref.erb'),
-      notify  => Exec["update ${pbuilder_type} ${pbuilder_name}"],
+  concat::fragment { $fname:
+    ensure  => $ensure,
+    target  => "/etc/pbuilder/${pbuilder_name}/apt/preferences",
+    content => template('apt/pin.pref.erb'),
+    notify  => Exec["update ${pbuilder_type} ${pbuilder_name}"],
   }
-
 }

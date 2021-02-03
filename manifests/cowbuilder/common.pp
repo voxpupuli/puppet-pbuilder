@@ -1,9 +1,9 @@
 class pbuilder::cowbuilder::common inherits pbuilder::common {
-  package {'cowbuilder':
+  package { 'cowbuilder':
     ensure => installed,
   }
 
-  file {'/etc/pbuilderrc':
+  file { '/etc/pbuilderrc':
     ensure  => file,
     owner   => 'root',
     group   => 'root',
