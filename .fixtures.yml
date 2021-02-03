@@ -2,5 +2,3 @@ fixtures:
   forge_modules:
     concat: 'puppetlabs-concat'
     stdlib: 'puppetlabs-stdlib'
-  symlinks:
-    pbuilder: "#{source_dir}"
