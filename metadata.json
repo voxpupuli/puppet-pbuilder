@@ -1,12 +1,12 @@
 {
-  "name": "camptocamp-pbuilder",
+  "name": "puppet-pbuilder",
   "version": "0.1.11",
-  "author": "Camptocamp",
+  "author": "Vox Pupuli",
   "summary": "Puppet pbuilder module",
   "license": "Apache-2.0",
-  "source": "https://github.com/camptocamp/puppet-pbuilder",
-  "project_page": "https://github.com/camptocamp/puppet-pbuilder",
-  "issues_url": "https://github.com/camptocamp/puppet-pbuilder/issues",
+  "source": "https://github.com/voxpupuli/puppet-pbuilder",
+  "project_page": "https://github.com/voxpupuli/puppet-pbuilder",
+  "issues_url": "https://github.com/voxpupuli/puppet-pbuilder/issues",
   "dependencies": [
     {
       "name": "puppetlabs/concat",
