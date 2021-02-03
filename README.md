@@ -46,10 +46,10 @@ The pbuilder type takes the following arguments :
      Defaults to $lsbdistcodename
  - arch: the architecture of the pbuilder (i386, amd64, etc.)
      Defaults to $architecture
- - methodurl: the URL used to grab the packages from 
+ - methodurl: the URL used to grab the packages from
      (e.g. http://http.debian.net/debian)
      Defaults to "" (not functional, only useful for "ensure => absent")
- - site: a hash used to find the right apt.config directory 
+ - site: a hash used to find the right apt.config directory
      (in puppet://${server}/apt/${release}/${arch}/${site})
      Defaults to "" (not functional, only useful for "ensure => absent")
  - debbuildopts: the options to send to debuild (see `man dpkg-buildpackage`)
