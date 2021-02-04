@@ -1,18 +1,17 @@
 define pbuilder::cowbuilder (
   $ensure='present',
-  $dist=$::lsbdistcodename,
-  $arch=$::architecture,
+  $dist=$facts['os']['distro']['codename'],
+  $arch=$facts['os']['architecture'],
   $cachedir='/var/cache/pbuilder',
   $confdir='/etc/pbuilder',
   $pbuilderrc=undef,
 ) {
-
-  include ::pbuilder::cowbuilder::common
+  include pbuilder::cowbuilder::common
 
   $cowbuilder = '/usr/sbin/cowbuilder'
   $basepath = "${cachedir}/base-${name}.cow"
 
-  concat {"${confdir}/${name}/apt/preferences":
+  concat { "${confdir}/${name}/apt/preferences":
     owner   => root,
     group   => root,
     mode    => '0644',
@@ -65,12 +64,10 @@ define pbuilder::cowbuilder (
         $basepath:
           ensure => absent;
       }
-
     }
 
     default: {
       fail("Wrong value for ensure: ${ensure}")
     }
   }
-
 }

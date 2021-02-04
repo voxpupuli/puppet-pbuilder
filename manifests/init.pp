@@ -29,7 +29,7 @@
 #
 # Sample Usage:
 #
-define pbuilder(
+define pbuilder (
   $ensure       = 'present',
   $release      = $lsbdistcodename,
   $arch         = $architecture,
@@ -42,9 +42,8 @@ define pbuilder(
   $cachedir     = '/var/cache/pbuilder',
   $rctemplate   = 'pbuilder/pbuilderrc.erb',
 ) {
-
   # Include commons (package and group)
-  include '::pbuilder::common'
+  include 'pbuilder::common'
 
   $script     = "${bindir}/pbuilder-${name}"
 
@@ -62,7 +61,6 @@ define pbuilder(
 
   # base
   $basetgz     = "${chrootdir}/base_${name}.tgz"
-
 
   case $ensure {
     'present': {
@@ -84,39 +82,38 @@ define pbuilder(
       }
 
       file {
-      $script:
-        ensure  => file,
-        mode    => '0755',
-        content => template('pbuilder/script.erb'),
-        require => Exec["bindir-${name}"];
-      [ $builddir, $resultdir, $aptcachedir ]:
-        ensure  => directory,
-        require => Exec["cachedir-${name}"];
-      $aptconfdir:
-        ensure  => directory,
-        recurse => true,
-        require => Exec["confdir-${name}"];
-      $hookdir:
-        ensure  => directory,
-        recurse => true,
-        # TODO hookdir source
-        #              source  => "puppet://${server}/pbuilder/hookdir/${site}",
-        require => Exec["confdir-${name}"];
-      $pbuilderrc:
-        ensure  => file,
-        content => template($rctemplate),
-        require => Exec["confdir-${name}"];
-
+        $script:
+          ensure  => file,
+          mode    => '0755',
+          content => template('pbuilder/script.erb'),
+          require => Exec["bindir-${name}"];
+        [$builddir, $resultdir, $aptcachedir]:
+          ensure  => directory,
+          require => Exec["cachedir-${name}"];
+        $aptconfdir:
+          ensure  => directory,
+          recurse => true,
+          require => Exec["confdir-${name}"];
+        $hookdir:
+          ensure  => directory,
+          recurse => true,
+          # TODO hookdir source
+          #              source  => "puppet://${server}/pbuilder/hookdir/${site}",
+          require => Exec["confdir-${name}"];
+        $pbuilderrc:
+          ensure  => file,
+          content => template($rctemplate),
+          require => Exec["confdir-${name}"];
       }
 
       # create the pbuilder if it was not created yet
       exec { "create_pbuilder_${name}":
         command => "${script} create",
         creates => $basetgz,
-        require => [ Package[pbuilder],
-        File[$script], File[$aptconfdir],
-        File[$pbuilderrc], File[$builddir], File[$aptcachedir],
-        Exec["chrootdir-${name}"]
+        require => [Package['pbuilder'],
+          File[$script], File[$aptconfdir],
+          File[$pbuilderrc], File[$builddir], File[$aptcachedir],
+          Exec["chrootdir-${name}"]
         ],
       }
 
@@ -124,12 +121,12 @@ define pbuilder(
       exec { "update_pbuilder_${name}":
         command     => "${script} update --override-config",
         onlyif      => "/usr/bin/test -f ${basetgz}",
-        subscribe   => [ File[$aptconfdir], File[$pbuilderrc] ],
+        subscribe   => [File[$aptconfdir], File[$pbuilderrc]],
         refreshonly => true,
-        require     => [ Package[pbuilder],
-        File[$script], File[$aptconfdir],
-        File[$pbuilderrc], File[$builddir], File[$aptcachedir],
-        Exec["chrootdir-${name}"]
+        require     => [Package['pbuilder'],
+          File[$script], File[$aptconfdir],
+          File[$pbuilderrc], File[$builddir], File[$aptcachedir],
+          Exec["chrootdir-${name}"]
         ],
       }
     }
@@ -139,27 +136,27 @@ define pbuilder(
       exec { "clean_pbuilder_${name}":
         command => "${script} clean",
         onlyif  => "/usr/bin/test -f ${script}",
-        require => Package[pbuilder],
+        require => Package['pbuilder'],
       }
 
       file {
         # remove single files
-        [ $script, $pbuilderrc, $basetgz]:
+        [$script, $pbuilderrc, $basetgz]:
           ensure  => absent,
           require => Exec["clean_pbuilder_${name}"];
-          # recursively remove internal directories
-          [ $aptconfdir, $builddir, $resultdir, $aptcachedir ]:
-            ensure  => absent,
-            require => Exec["clean_pbuilder_${name}"],
-            recurse => true;
-          # recursively remove containing directories
-          [ $pbuilder_confdir, $pbuilder_cachedir ]:
-            ensure  => absent,
-            require => [ Exec["clean_pbuilder_${name}"],
+        # recursively remove internal directories
+        [$aptconfdir, $builddir, $resultdir, $aptcachedir]:
+          ensure  => absent,
+          require => Exec["clean_pbuilder_${name}"],
+          recurse => true;
+        # recursively remove containing directories
+        [$pbuilder_confdir, $pbuilder_cachedir]:
+          ensure  => absent,
+          require => [Exec["clean_pbuilder_${name}"],
             File[$script], File[$pbuilderrc],
             File[$aptconfdir],
             File[$builddir], File[$resultdir], File[$aptcachedir]
-            ];
+          ];
       }
     }
 
@@ -168,4 +165,3 @@ define pbuilder(
     }
   }
 }
-
