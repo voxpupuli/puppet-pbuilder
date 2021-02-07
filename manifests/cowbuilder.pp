@@ -1,13 +1,34 @@
+# @summary Manage a cowbuilder environment
+#
+# @param ensure
+#   Whether the pbuilder should be present
+# @param release
+#   The Debian/Ubuntu release to be used (Buster, Bionic, etc)
+# @param arch
+#   The architecture of the pbuilder (i386, amd64, etc.)
+# @param cachedir
+#   Where to create the aptcache, build and result directories
+# @param confdir
+#   Where to store the configuration for the script
+# @param methodurl
+#   The URL used to grab the packages from
+#   (e.g. http://deb.debian.org/debian)
+# @param debbuildopts
+#   The options to send to debuild (see `man dpkg-buildpackage`)
+# @param bindmounts
+#   A list of space-separated directories to bind-mount in the chroot
+# @param rctemplate
+#   The pbuilderrc ERB template to use
 define pbuilder::cowbuilder (
-  $ensure='present',
-  $release=$facts['os']['distro']['codename'],
-  $arch=$facts['os']['architecture'],
-  $cachedir='/var/cache/pbuilder',
-  $methodurl=undef,
-  $debbuildopts='-b',
-  $bindmounts=undef,
-  $confdir='/etc/pbuilder',
-  $rctemplate='pbuilder/pbuilderrc.erb',
+  Enum['present', 'absent'] $ensure = 'present',
+  String[1] $release = $facts['os']['distro']['codename'],
+  String[1] $arch = $facts['os']['architecture'],
+  Stdlib::Absolutepath $cachedir = '/var/cache/pbuilder',
+  Optional[String[1]] $methodurl = undef,
+  String $debbuildopts = '-b',
+  Optional[String[1]] $bindmounts = undef,
+  Stdlib::Absolutepath $confdir = '/etc/pbuilder',
+  String[1] $rctemplate = 'pbuilder/pbuilderrc.erb',
 ) {
   include pbuilder::cowbuilder::common
 
