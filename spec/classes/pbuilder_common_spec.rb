@@ -5,7 +5,7 @@ describe 'pbuilder::common' do
     context "on #{os}" do
       let(:facts) { os_facts }
 
-      it { should compile.with_all_deps }
+      it { is_expected.to compile.with_all_deps }
 
       it { is_expected.to contain_package('pbuilder') }
 
