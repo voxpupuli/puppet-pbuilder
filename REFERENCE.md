@@ -6,9 +6,6 @@
 
 ### Classes
 
-#### Public Classes
-
-
 #### Private Classes
 
 * `pbuilder::common`: Manage generic resources for pbuilder
@@ -19,14 +16,12 @@
 #### Public Defined types
 
 * [`pbuilder`](#pbuilder): Provide a pbuilder resource.
-* [`pbuilder::cowbuilder`](#pbuildercowbuilder): Manage a cowbuilder environment
+* [`pbuilder::cowbuilder`](#pbuilder--cowbuilder): Manage a cowbuilder environment
 
 #### Private Defined types
 
 * `pbuilder::apt::preferences`: Manage preferences for a pbuilder setup
 * `pbuilder::apt::sources_list`: Manage sources.list for a pbuilder setup
-
-## Classes
 
 ## Defined types
 
@@ -66,19 +61,19 @@ pbuilder { 'buster-amd64':
 
 The following parameters are available in the `pbuilder` defined type:
 
-* [`ensure`](#ensure)
-* [`release`](#release)
-* [`arch`](#arch)
-* [`methodurl`](#methodurl)
-* [`debbuildopts`](#debbuildopts)
-* [`bindmounts`](#bindmounts)
-* [`bindir`](#bindir)
-* [`chrootdir`](#chrootdir)
-* [`cachedir`](#cachedir)
-* [`confdir`](#confdir)
-* [`rctemplate`](#rctemplate)
+* [`ensure`](#-pbuilder--ensure)
+* [`release`](#-pbuilder--release)
+* [`arch`](#-pbuilder--arch)
+* [`methodurl`](#-pbuilder--methodurl)
+* [`debbuildopts`](#-pbuilder--debbuildopts)
+* [`bindmounts`](#-pbuilder--bindmounts)
+* [`bindir`](#-pbuilder--bindir)
+* [`chrootdir`](#-pbuilder--chrootdir)
+* [`cachedir`](#-pbuilder--cachedir)
+* [`confdir`](#-pbuilder--confdir)
+* [`rctemplate`](#-pbuilder--rctemplate)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-pbuilder--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -86,7 +81,7 @@ Whether the pbuilder should be present
 
 Default value: `'present'`
 
-##### <a name="release"></a>`release`
+##### <a name="-pbuilder--release"></a>`release`
 
 Data type: `String[1]`
 
@@ -94,7 +89,7 @@ The Debian/Ubuntu release to be used (Buster, Bionic, etc)
 
 Default value: `$facts['os']['distro']['codename']`
 
-##### <a name="arch"></a>`arch`
+##### <a name="-pbuilder--arch"></a>`arch`
 
 Data type: `String[1]`
 
@@ -102,16 +97,16 @@ The architecture of the pbuilder (i386, amd64, etc.)
 
 Default value: `$facts['os']['architecture']`
 
-##### <a name="methodurl"></a>`methodurl`
+##### <a name="-pbuilder--methodurl"></a>`methodurl`
 
 Data type: `Optional[String[1]]`
 
 The URL used to grab the packages from
 (e.g. http://deb.debian.org/debian)
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="debbuildopts"></a>`debbuildopts`
+##### <a name="-pbuilder--debbuildopts"></a>`debbuildopts`
 
 Data type: `String`
 
@@ -119,15 +114,15 @@ The options to send to debuild (see `man dpkg-buildpackage`)
 
 Default value: `'-b'`
 
-##### <a name="bindmounts"></a>`bindmounts`
+##### <a name="-pbuilder--bindmounts"></a>`bindmounts`
 
 Data type: `Optional[String[1]]`
 
 A list of space-separated directories to bind-mount in the chroot
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="bindir"></a>`bindir`
+##### <a name="-pbuilder--bindir"></a>`bindir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -135,7 +130,7 @@ Where to put the pbuilder script
 
 Default value: `'/usr/local/bin'`
 
-##### <a name="chrootdir"></a>`chrootdir`
+##### <a name="-pbuilder--chrootdir"></a>`chrootdir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -143,7 +138,7 @@ Where to put the basetgz tarball
 
 Default value: `'/var/chroot/pbuilder'`
 
-##### <a name="cachedir"></a>`cachedir`
+##### <a name="-pbuilder--cachedir"></a>`cachedir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -151,7 +146,7 @@ Where to create the aptcache, build and result directories
 
 Default value: `'/var/cache/pbuilder'`
 
-##### <a name="confdir"></a>`confdir`
+##### <a name="-pbuilder--confdir"></a>`confdir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -159,7 +154,7 @@ Where to store the configuration for the script
 
 Default value: `'/etc/pbuilder'`
 
-##### <a name="rctemplate"></a>`rctemplate`
+##### <a name="-pbuilder--rctemplate"></a>`rctemplate`
 
 Data type: `String[1]`
 
@@ -167,7 +162,7 @@ The pbuilderrc ERB template to use
 
 Default value: `'pbuilder/pbuilderrc.erb'`
 
-### <a name="pbuildercowbuilder"></a>`pbuilder::cowbuilder`
+### <a name="pbuilder--cowbuilder"></a>`pbuilder::cowbuilder`
 
 Manage a cowbuilder environment
 
@@ -175,17 +170,17 @@ Manage a cowbuilder environment
 
 The following parameters are available in the `pbuilder::cowbuilder` defined type:
 
-* [`ensure`](#ensure)
-* [`release`](#release)
-* [`arch`](#arch)
-* [`cachedir`](#cachedir)
-* [`confdir`](#confdir)
-* [`methodurl`](#methodurl)
-* [`debbuildopts`](#debbuildopts)
-* [`bindmounts`](#bindmounts)
-* [`rctemplate`](#rctemplate)
+* [`ensure`](#-pbuilder--cowbuilder--ensure)
+* [`release`](#-pbuilder--cowbuilder--release)
+* [`arch`](#-pbuilder--cowbuilder--arch)
+* [`cachedir`](#-pbuilder--cowbuilder--cachedir)
+* [`confdir`](#-pbuilder--cowbuilder--confdir)
+* [`methodurl`](#-pbuilder--cowbuilder--methodurl)
+* [`debbuildopts`](#-pbuilder--cowbuilder--debbuildopts)
+* [`bindmounts`](#-pbuilder--cowbuilder--bindmounts)
+* [`rctemplate`](#-pbuilder--cowbuilder--rctemplate)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-pbuilder--cowbuilder--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -193,7 +188,7 @@ Whether the pbuilder should be present
 
 Default value: `'present'`
 
-##### <a name="release"></a>`release`
+##### <a name="-pbuilder--cowbuilder--release"></a>`release`
 
 Data type: `String[1]`
 
@@ -201,7 +196,7 @@ The Debian/Ubuntu release to be used (Buster, Bionic, etc)
 
 Default value: `$facts['os']['distro']['codename']`
 
-##### <a name="arch"></a>`arch`
+##### <a name="-pbuilder--cowbuilder--arch"></a>`arch`
 
 Data type: `String[1]`
 
@@ -209,7 +204,7 @@ The architecture of the pbuilder (i386, amd64, etc.)
 
 Default value: `$facts['os']['architecture']`
 
-##### <a name="cachedir"></a>`cachedir`
+##### <a name="-pbuilder--cowbuilder--cachedir"></a>`cachedir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -217,7 +212,7 @@ Where to create the aptcache, build and result directories
 
 Default value: `'/var/cache/pbuilder'`
 
-##### <a name="confdir"></a>`confdir`
+##### <a name="-pbuilder--cowbuilder--confdir"></a>`confdir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -225,16 +220,16 @@ Where to store the configuration for the script
 
 Default value: `'/etc/pbuilder'`
 
-##### <a name="methodurl"></a>`methodurl`
+##### <a name="-pbuilder--cowbuilder--methodurl"></a>`methodurl`
 
 Data type: `Optional[String[1]]`
 
 The URL used to grab the packages from
 (e.g. http://deb.debian.org/debian)
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="debbuildopts"></a>`debbuildopts`
+##### <a name="-pbuilder--cowbuilder--debbuildopts"></a>`debbuildopts`
 
 Data type: `String`
 
@@ -242,15 +237,15 @@ The options to send to debuild (see `man dpkg-buildpackage`)
 
 Default value: `'-b'`
 
-##### <a name="bindmounts"></a>`bindmounts`
+##### <a name="-pbuilder--cowbuilder--bindmounts"></a>`bindmounts`
 
 Data type: `Optional[String[1]]`
 
 A list of space-separated directories to bind-mount in the chroot
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="rctemplate"></a>`rctemplate`
+##### <a name="-pbuilder--cowbuilder--rctemplate"></a>`rctemplate`
 
 Data type: `String[1]`
 
