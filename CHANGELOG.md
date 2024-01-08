@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.0.0](https://github.com/voxpupuli/puppet-pbuilder/tree/v2.0.0) (2024-01-08)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-pbuilder/compare/v1.0.0...v2.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 6 support [\#27](https://github.com/voxpupuli/puppet-pbuilder/pull/27) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Mark compatible with puppetlabs/concat 8.x & 9.x [\#33](https://github.com/voxpupuli/puppet-pbuilder/pull/33) ([ekohl](https://github.com/ekohl))
+- Add Puppet 8 support [\#30](https://github.com/voxpupuli/puppet-pbuilder/pull/30) ([bastelfreak](https://github.com/bastelfreak))
+- puppetlabs/stdlib: Allow 9.x [\#29](https://github.com/voxpupuli/puppet-pbuilder/pull/29) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v1.0.0](https://github.com/voxpupuli/puppet-pbuilder/tree/v1.0.0) (2022-09-16)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-pbuilder/compare/0.1.11...v1.0.0)
