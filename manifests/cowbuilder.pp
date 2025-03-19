@@ -71,7 +71,7 @@ define pbuilder::cowbuilder (
           ensure  => directory;
 
         $aptconfdir:
-          ensure  => directory;
+          ensure => directory;
 
         "${aptconfdir}/sources.list.d":
           ensure  => directory,
