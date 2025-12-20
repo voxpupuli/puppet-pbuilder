@@ -124,7 +124,7 @@ define pbuilder (
         require => [Package['pbuilder'],
           File[$script], File[$aptconfdir],
           File[$pbuilderrc], File[$builddir], File[$aptcachedir],
-          Exec["chrootdir-${name}"]
+          Exec["chrootdir-${name}"],
         ],
       }
 
@@ -137,7 +137,7 @@ define pbuilder (
         require     => [Package['pbuilder'],
           File[$script], File[$aptconfdir],
           File[$pbuilderrc], File[$builddir], File[$aptcachedir],
-          Exec["chrootdir-${name}"]
+          Exec["chrootdir-${name}"],
         ],
       }
     }
@@ -166,7 +166,7 @@ define pbuilder (
           require => [Exec["clean_pbuilder_${name}"],
             File[$script], File[$pbuilderrc],
             File[$aptconfdir],
-            File[$builddir], File[$resultdir], File[$aptcachedir]
+            File[$builddir], File[$resultdir], File[$aptcachedir],
           ];
       }
     }
