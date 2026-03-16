@@ -15,15 +15,15 @@ describe 'pbuilder' do
         it { is_expected.to contain_class('pbuilder::common') }
 
         it do
-          is_expected.to contain_file('/etc/pbuilder/foo/pbuilderrc').
-            with_content(%r{MIRRORSITE=""}).
-            with_content(%r{DISTRIBUTION="#{facts[:os]['distro']['codename']}"}).
-            with_content(%r{ARCH="#{facts[:os]['architecture']}"}).
-            with_content(%r{BASETGZ="/var/chroot/pbuilder/base_foo\.tgz"}).
-            without_content(%r{BASEPATH=})
+          is_expected.to contain_file('/etc/pbuilder/foo/pbuilderrc')
+            .with_content(%r{MIRRORSITE=""})
+            .with_content(%r{DISTRIBUTION="#{facts[:os]['distro']['codename']}"})
+            .with_content(%r{ARCH="#{facts[:os]['architecture']}"})
+            .with_content(%r{BASETGZ="/var/chroot/pbuilder/base_foo\.tgz"})
+            .without_content(%r{BASEPATH=})
 
-          is_expected.to contain_file('/usr/local/bin/pbuilder-foo').
-            with_content(%r{CONFIGFILE="/etc/pbuilder/foo/pbuilderrc"})
+          is_expected.to contain_file('/usr/local/bin/pbuilder-foo')
+            .with_content(%r{CONFIGFILE="/etc/pbuilder/foo/pbuilderrc"})
         end
       end
 
@@ -35,8 +35,8 @@ describe 'pbuilder' do
         it { is_expected.to compile.with_all_deps }
 
         it do
-          is_expected.to contain_file('/etc/pbuilder/foo/pbuilderrc').
-            with_content(%r{MIRRORSITE="http://ftp\.debian\.org/debian"})
+          is_expected.to contain_file('/etc/pbuilder/foo/pbuilderrc')
+            .with_content(%r{MIRRORSITE="http://ftp\.debian\.org/debian"})
         end
       end
     end

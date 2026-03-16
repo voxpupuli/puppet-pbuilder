@@ -15,12 +15,12 @@ describe 'pbuilder::cowbuilder' do
         it { is_expected.to contain_class('pbuilder::cowbuilder::common') }
 
         it do
-          is_expected.to contain_file('/etc/pbuilder/moo/pbuilderrc').
-            with_content(%r{MIRRORSITE=""}).
-            with_content(%r{DISTRIBUTION="#{facts[:os]['distro']['codename']}"}).
-            with_content(%r{ARCH="#{facts[:os]['architecture']}"}).
-            with_content(%r{BASEPATH="/var/cache/pbuilder/base-moo\.cow"}).
-            without_content(%r{BASETGZ=})
+          is_expected.to contain_file('/etc/pbuilder/moo/pbuilderrc')
+            .with_content(%r{MIRRORSITE=""})
+            .with_content(%r{DISTRIBUTION="#{facts[:os]['distro']['codename']}"})
+            .with_content(%r{ARCH="#{facts[:os]['architecture']}"})
+            .with_content(%r{BASEPATH="/var/cache/pbuilder/base-moo\.cow"})
+            .without_content(%r{BASETGZ=})
         end
       end
 
@@ -32,8 +32,8 @@ describe 'pbuilder::cowbuilder' do
         it { is_expected.to compile.with_all_deps }
 
         it do
-          is_expected.to contain_file('/etc/pbuilder/moo/pbuilderrc').
-            with_content(%r{MIRRORSITE="http://ftp.debian.org/debian"})
+          is_expected.to contain_file('/etc/pbuilder/moo/pbuilderrc')
+            .with_content(%r{MIRRORSITE="http://ftp.debian.org/debian"})
         end
       end
     end
