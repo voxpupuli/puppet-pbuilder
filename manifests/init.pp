@@ -69,6 +69,7 @@ define pbuilder (
   $pbuilderrc  = "${pbuilder_confdir}/pbuilderrc"
   $aptconfdir  = "${pbuilder_confdir}/apt.config"
   $hookdir     = "${pbuilder_confdir}/hooks"
+  $aptconfflag = "${aptconfdir}/puppet-managed"
 
   # base
   $basetgz     = "${chrootdir}/base_${name}.tgz"
@@ -105,6 +106,9 @@ define pbuilder (
           ensure  => directory,
           recurse => true,
           require => Exec["confdir-${name}"];
+        $aptconfflag:
+          ensure  => file,
+          require => File[$aptconfdir];
         $hookdir:
           ensure  => directory,
           recurse => true,
@@ -122,7 +126,7 @@ define pbuilder (
         command => "${script} create",
         creates => $basetgz,
         require => [Package['pbuilder'],
-          File[$script], File[$aptconfdir],
+          File[$script], File[$aptconfdir], File[$aptconfflag],
           File[$pbuilderrc], File[$builddir], File[$aptcachedir],
           Exec["chrootdir-${name}"],
         ],
@@ -135,7 +139,7 @@ define pbuilder (
         subscribe   => [File[$aptconfdir], File[$pbuilderrc]],
         refreshonly => true,
         require     => [Package['pbuilder'],
-          File[$script], File[$aptconfdir],
+          File[$script], File[$aptconfdir], File[$aptconfflag],
           File[$pbuilderrc], File[$builddir], File[$aptcachedir],
           Exec["chrootdir-${name}"],
         ],
@@ -152,7 +156,7 @@ define pbuilder (
 
       file {
         # remove single files
-        [$script, $pbuilderrc, $basetgz]:
+        [$script, $pbuilderrc, $basetgz, $aptconfflag]:
           ensure  => absent,
           require => Exec["clean_pbuilder_${name}"];
         # recursively remove internal directories
