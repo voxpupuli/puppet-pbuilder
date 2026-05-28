@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.0](https://github.com/voxpupuli/puppet-pbuilder/tree/v4.0.0) (2026-05-28)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-pbuilder/compare/v3.0.0...v4.0.0)
+
+**Breaking changes:**
+
+- Drop support for Debian 9 and 10 [\#62](https://github.com/voxpupuli/puppet-pbuilder/pull/62) ([evgeni](https://github.com/evgeni))
+
+**Implemented enhancements:**
+
+- add basic acceptance tests [\#63](https://github.com/voxpupuli/puppet-pbuilder/pull/63) ([evgeni](https://github.com/evgeni))
+- Add support for Debian 12 and 13 [\#61](https://github.com/voxpupuli/puppet-pbuilder/pull/61) ([evgeni](https://github.com/evgeni))
+- Allow puppetlabs/concat 10.x [\#60](https://github.com/voxpupuli/puppet-pbuilder/pull/60) ([evgeni](https://github.com/evgeni))
+
 ## [v3.0.0](https://github.com/voxpupuli/puppet-pbuilder/tree/v3.0.0) (2025-12-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-pbuilder/compare/v2.0.0...v3.0.0)
