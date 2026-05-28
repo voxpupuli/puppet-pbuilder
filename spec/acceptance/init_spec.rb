@@ -3,6 +3,8 @@
 require 'spec_helper_acceptance'
 
 def skip_debian12_in_container
+  return unless default[:hypervisor] == 'container_podman'
+
   "debootstrap in Debian 12 doesn't work inside a container" if fact('os.family') == 'Debian' && fact('os.release.major') == '12'
 end
 
