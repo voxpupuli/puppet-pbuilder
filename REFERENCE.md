@@ -252,4 +252,3 @@ Data type: `String[1]`
 The pbuilderrc ERB template to use
 
 Default value: `'pbuilder/pbuilderrc.erb'`
-
