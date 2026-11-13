@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.0](https://github.com/voxpupuli/puppet-pbuilder/tree/v4.1.0) (2026-11-13)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-pbuilder/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- puppetlabs/stdlib: Allow 10.x [\#67](https://github.com/voxpupuli/puppet-pbuilder/pull/67) ([bastelfreak](https://github.com/bastelfreak))
+- Update requirements to allow OpenVox 9 [\#66](https://github.com/voxpupuli/puppet-pbuilder/pull/66) ([sebastianrakel](https://github.com/sebastianrakel))
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-pbuilder/tree/v4.0.0) (2026-05-28)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-pbuilder/compare/v3.0.0...v4.0.0)
